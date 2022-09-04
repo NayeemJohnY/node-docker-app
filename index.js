@@ -1,6 +1,33 @@
 const express = require('express');
+const morgan = require('morgan')
+const { logger} = require('./logger')
 
 const app = express();
+
+app.use(morgan(':remote-addr :url :method HTTP/:http-version :user-agent', {
+    immediate: true,
+    stream: {
+        write: (message) => {
+            logger.info('APIENTRY', message);
+        }
+    }
+}));
+app.use(morgan(":remote-addr :url :method  :req[Content-length] :status :response-time ms", {
+    stream: {
+        write: (message) => {
+            logger.info('APIEXIT', message);
+        }
+    }
+}));
+
+app.get('/health', (req, res) => {
+    process.env.
+    res.status(200).send(`<h2> I am in working condition. Thanks for checking <h2>`)
+})
+
+app.get('/about', (req, res) => {
+    res.status(200).send(`<h2> About this container group instance <h2>`)
+})
 
 
 app.get('/', (req, res) => {
@@ -11,22 +38,12 @@ app.get('/', (req, res) => {
     <script type="text/javascript">
     
     async function checkHealth() {
-        response = await fetch('/health', {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
+        response = await fetch('/health', {})
         document.querySelector('body').innerHTML = (await response.text())
     }
 
     async function about() {
-        response = await fetch('/about', {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
+        response = await fetch('/about', {})
         document.querySelector('body').innerHTML = await response.text()
     }
     </script>
@@ -35,5 +52,5 @@ app.get('/', (req, res) => {
 
 PORT = process.env.PORT || 80
 app.listen(PORT, ()=> {
-    console.log(`Running on PORT ${PORT}`);
+    logger.info("LOG", "App is Up and running on port", PORT);
 })
