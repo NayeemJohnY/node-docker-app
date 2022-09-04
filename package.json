@@ -1,11 +1,14 @@
 {
-  "name": "api-app",
+  "name": "docker-app",
   "version": "1.0.0",
-  "description": "API for web app",
+  "description": "Node App for the container",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "author": "Nayeem John",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
 }
