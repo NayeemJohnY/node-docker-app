@@ -21,8 +21,8 @@ app.use(morgan(":remote-addr :url :method  :req[Content-length] :status :respons
 }));
 
 app.get('/health', (req, res) => {
-    process.env.
-    res.status(200).send(`<h2> I am in working condition. Thanks for checking <h2>`)
+    console.log(process.env)
+    res.status(200).send(`<h2> I am in working condition. Thanks for checking <h2>`+ JSON.stringify(process.env))
 })
 
 app.get('/about', (req, res) => {
