@@ -32,7 +32,7 @@ app.get('/about', (req, res) => {
 
 app.get('/', (req, res) => {
     res.send(`
-    <h1>Welcome to the HTML Node JS app</h1>
+    <h1>Welcome to the HTML Node JS app:Deploy Me</h1>
     <button onclick="{checkHealth()}">Click Health</button>
     <button onclick="{about()}">About Me</button>
     <script type="text/javascript">
